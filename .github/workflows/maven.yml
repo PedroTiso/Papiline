@@ -32,3 +32,44 @@ jobs:
       run: |
         cd Pipeline_aula
         mvn clean install -DskipTests
+
+    - name: Upload build artifcat
+      uses: actions/upload-artifcat@v4
+      with:
+        name: jar file
+        path: Pipeline_aula/target/*.jar
+
+  test:
+    needs: build
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK 24
+      uses: actions/setup-java@v4
+      with:
+        java-version: '24'
+        distribution: 'temurin'
+        cache: maven
+    - name: Build with Maven
+      run: |
+        cd Pipeline_aula
+        mvn clean test site
+
+    - name: Upload build artifcat
+      uses: actions/upload-artifcat@v4
+      with:
+        name: test report
+        path: Pipeline_aula/target/site/
+
+  notification:
+    needs: test
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Notification
+      run: sh scripts/sendEmail.sh
+
