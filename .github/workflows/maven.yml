@@ -34,7 +34,7 @@ jobs:
         mvn clean install -DskipTests
 
     - name: Upload build artifcat
-      uses: actions/upload-artifcat@v4
+      uses: actions/upload-artifact@v4
       with:
         name: jar file
         path: Pipeline_aula/target/*.jar
@@ -58,7 +58,7 @@ jobs:
         mvn clean test site
 
     - name: Upload build artifcat
-      uses: actions/upload-artifcat@v4
+      uses: actions/upload-artifact@v4
       with:
         name: test report
         path: Pipeline_aula/target/site/
