@@ -5,6 +5,7 @@ import java.util.List;
 
 public class CarrinhoDeCompras {
 
+    // Arraylist de itens.
     private List <Double> itens = new ArrayList<>();
 
     // Adicionando um item no carrinho
