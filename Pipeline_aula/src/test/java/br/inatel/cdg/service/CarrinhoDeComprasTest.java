@@ -179,4 +179,6 @@ public class CarrinhoDeComprasTest {
         Assert.assertEquals(-40.0, carrinho.CalculeTotal(), 0.001);
     }
 
+    
+
 }
