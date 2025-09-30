@@ -1,3 +1,13 @@
-cd Pipeline_aula
-sudo apt-get install mailutils
-echo "Sending e-mail after pipeline completion" | mail -s "Pipeline" pedro.tiso@gec.inatel.br
+set -e
+
+echo "==== Enviando notificação por e-mail ===="
+
+# Pega do ambiente (vem do GitHub Actions)
+EMAIL_DESTINATARIO=$EMAIL_DEST
+
+MENSAGEM="Pipeline executado com sucesso!"
+
+# Envia o e-mail
+echo "$MENSAGEM" | mail -s "Notificação Pipeline" "$EMAIL_DESTINATARIO"
+
+echo "==== Notificação enviada para $EMAIL_DESTINATARIO ===="
