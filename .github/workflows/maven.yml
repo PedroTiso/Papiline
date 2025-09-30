@@ -1,11 +1,3 @@
-# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-maven
-
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
 name: Java CI with Maven
 
 on:
@@ -33,7 +25,7 @@ jobs:
         cd Pipeline_aula
         mvn clean install -DskipTests
 
-    - name: Upload build artifcat
+    - name: Upload build artifact
       uses: actions/upload-artifact@v4
       with:
         name: jar file
@@ -56,7 +48,7 @@ jobs:
         cd Pipeline_aula
         mvn clean test site
 
-    - name: Upload build artifcat
+    - name: Upload build artifact
       uses: actions/upload-artifact@v4
       with:
         name: test report
@@ -77,4 +69,3 @@ jobs:
       env:
         EMAIL_TO: ${{ secrets.EMAIL_TO }}   # <-- secret configurado no GitHub
       run: sh scripts/sendEmail.sh
-
