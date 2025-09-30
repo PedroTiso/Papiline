@@ -54,9 +54,20 @@ jobs:
           path: Pipeline_aula/target/site/
 
   notification:
-    needs: test
+    needs: build   # roda em paralelo com "test"
     runs-on: ubuntu-latest
+    env:
+      EMAIL_TO: ${{ secrets.EMAIL_TO }}
     steps:
       - uses: actions/checkout@v4
+      - name: Install mailutils
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y mailutils
       - name: Notification
-        run: sh scripts/sendEmail.sh
+        run: |
+          if [ "${{ needs.build.result }}" == "success" ] && [ "${{ needs.test.result }}" == "success" ]; then
+            echo "Pipeline executado com sucesso!" | mail -s "Pipeline Status" $EMAIL_TO
+          else
+            echo "Pipeline falhou em algum estágio." | mail -s "Pipeline Status" $EMAIL_TO
+          fi
